@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import express from "express";
 import { getDb } from "./lib/db.mjs";
+import { registerMatrixDashboardRoutes } from "./matrix-dashboard.mjs";
 import {
   getTailBroadcaster,
   readHistory,
@@ -10,8 +11,11 @@ import {
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || "127.0.0.1";
 
 app.use(express.json());
+
+registerMatrixDashboardRoutes(app);
 
 // ── API ──────────────────────────────────────────────────────
 
@@ -1029,8 +1033,18 @@ app.get("/", (_req, res) => {
 
 // ── Start ─────────────────────────────────────────────────────
 
-app.listen(PORT, () => {
+let keepAlive = null;
+
+const server = app.listen(PORT, HOST, () => {
   console.log(`\n  DOUYIN // COMMENT TERMINAL`);
-  console.log(`  http://localhost:${PORT}`);
+  console.log(`  http://${HOST}:${PORT}`);
+  console.log(`  MATRIX // http://${HOST}:${PORT}/matrix`);
   console.log(`  OpenClaw 思考流  GET /api/openclaw-thinking/status | /history | /stream\n`);
+  keepAlive = setInterval(() => {}, 1 << 30);
+});
+
+server.on("error", (error) => {
+  console.error(error);
+  if (keepAlive) clearInterval(keepAlive);
+  process.exitCode = 1;
 });

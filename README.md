@@ -37,10 +37,35 @@ git clone https://github.com/wenyg/douyin-creator-tools.git
 | `npm run works` | - | `comments-output/list-works.json` |
 | `npm run comments:export -- "<作品标题>"` | 作品标题 | `comments-output/unreplied-comments.json` |
 | `npm run comments:reply -- <plan.json>` | JSON 路径 | `comments-output/reply-comments-result.json` |
+| `npm run matrix` | - | `http://localhost:8765/matrix` 抖音数据同步总览 |
+| `npm run matrix:sync-douyin` | - | 从抖音创作者中心只读同步作品、封面、发布时间、播放/赞评/分享 |
 
 命令的详细 I/O 结构、字段硬约束见 `skills/douyin-creator/SKILL.md`。
 
 `npm run` 的参数一定放在 `--` 之后，否则被 npm 吞掉。
+
+## EduStorm 内容矩阵总览
+
+第一版内部只读数据看板已接入当前 Express 服务：
+
+```bash
+npm run matrix:sync-douyin
+npm run matrix
+```
+
+打开：
+
+```text
+http://localhost:8765/matrix
+```
+
+接口：
+
+```text
+http://localhost:8765/api/matrix/overview
+```
+
+说明见 `docs/edustorm-matrix-dashboard.md`。
 
 ## 硬约束
 

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.ommedia.matrix</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>-lc</string>
+    <string>cd "/Users/jacobyeung/Documents/codex 2/douyin-creator-tools" &amp;&amp; mkdir -p logs &amp;&amp; exec /opt/homebrew/bin/npm run matrix</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/jacobyeung/Documents/codex 2/douyin-creator-tools</string>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>KeepAlive</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/jacobyeung/Documents/codex 2/douyin-creator-tools/logs/matrix-service.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/jacobyeung/Documents/codex 2/douyin-creator-tools/logs/matrix-service.err.log</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PORT</key>
+    <string>8765</string>
+    <key>HOST</key>
+    <string>127.0.0.1</string>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+</dict>
+</plist>

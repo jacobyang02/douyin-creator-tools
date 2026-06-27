@@ -89,13 +89,21 @@ async function inspectWorksInSideSheet(sideSheet) {
       const fullCompact = normalize(rawTitle).replace(/\s+/g, "") || "";
       const title = fullCompact || `作品${index + 1}`;
       const titleKey = (fullCompact.slice(0, 15) || title).toLowerCase();
+      const image = node.querySelector("img");
+      const coverUrl =
+        image?.currentSrc ||
+        image?.src ||
+        image?.getAttribute("data-src") ||
+        image?.getAttribute("data-original") ||
+        "";
       node.setAttribute("data-codex-work-title-key", titleKey);
       node.setAttribute("data-codex-work-publish-key", normalize(publishText).toLowerCase());
 
       return {
         index,
         title,
-        publishText
+        publishText,
+        coverUrl
       };
     });
   });
@@ -434,7 +442,8 @@ function ensureSelectableWork(targetWork) {
 export function getWorksOutput(works) {
   return works.map((work) => ({
     title: canonicalWorkTitle(work.title) || String(work.title ?? ""),
-    publishText: work.publishText
+    publishText: work.publishText,
+    coverUrl: work.coverUrl || ""
   }));
 }
 
@@ -445,7 +454,8 @@ export function getSelectedWorkOutput(work) {
 
   return {
     title: canonicalWorkTitle(work.title) || String(work.title ?? ""),
-    publishText: work.publishText
+    publishText: work.publishText,
+    coverUrl: work.coverUrl || ""
   };
 }
 

@@ -38,7 +38,10 @@ export async function launchPersistentPage(options = {}) {
     alwaysNewPage = false
   } = options;
 
-  const launchOptions = { headless };
+  const launchOptions = {
+    headless,
+    args: ["--disable-crash-reporter", "--disable-crashpad"]
+  };
   if (viewport) {
     launchOptions.viewport = viewport;
   } else {
