@@ -25,21 +25,53 @@ router.get("/", (ctx) => {
 });
 
 router.all("/api/douyin/oauth/callback", (ctx) => {
+
   ctx.set("Cache-Control", "no-store, max-age=0");
 
+  const body = ctx.request.body as any;
+
   const challenge =
+
     ctx.query.challenge ||
+
     ctx.query.echostr ||
+
     ctx.query.verify_token ||
-    ctx.query.token;
+
+    ctx.query.token ||
+
+    body?.challenge ||
+
+    body?.echostr ||
+
+    body?.verify_token ||
+
+    body?.token;
+
+  console.log("douyin callback verify", {
+
+    method: ctx.method,
+
+    path: ctx.path,
+
+    query: ctx.query,
+
+    body
+
+  });
 
   if (challenge) {
+
     ctx.type = "text/plain";
+
     ctx.body = String(challenge);
+
     return;
+
   }
 
   ctx.body = callbackPayload(ctx);
+
 });
 
 
