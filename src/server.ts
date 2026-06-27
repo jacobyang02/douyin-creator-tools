@@ -30,23 +30,25 @@ router.all("/api/douyin/oauth/callback", (ctx) => {
 
   const body = ctx.request.body as any;
 
-  const challenge =
+ const challenge =
 
-    ctx.query.challenge ||
+  ctx.query.challenge ||
 
-    ctx.query.echostr ||
+  ctx.query.echostr ||
 
-    ctx.query.verify_token ||
+  ctx.query.verify_token ||
 
-    ctx.query.token ||
+  ctx.query.token ||
 
-    body?.challenge ||
+  body?.challenge ||
 
-    body?.echostr ||
+  body?.echostr ||
 
-    body?.verify_token ||
+  body?.verify_token ||
 
-    body?.token;
+  body?.token ||
+
+  body?.content?.challenge;
 
   console.log("douyin callback verify", {
 
