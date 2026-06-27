@@ -63,14 +63,12 @@ router.all("/api/douyin/oauth/callback", (ctx) => {
   });
 
   if (challenge) {
-
-    ctx.type = "text/plain";
-
-    ctx.body = String(challenge);
-
-    return;
-
-  }
+  ctx.type = "application/json";
+  ctx.body = {
+    challenge: String(challenge)
+  };
+  return;
+}
 
   ctx.body = callbackPayload(ctx);
 
