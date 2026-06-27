@@ -29,16 +29,7 @@ router.all("/api/douyin/oauth/callback", (ctx) => {
   ctx.body = callbackPayload(ctx);
 });
 
-router.all("/api/*", (ctx) => {
-  ctx.set("Cache-Control", "no-store, max-age=0");
-  ctx.body = {
-    ok: true,
-    service: "OM-Media Data Platform",
-    path: ctx.path,
-    method: ctx.method,
-    message: "api route is reachable"
-  };
-});
+
 
 app.use(bodyParser());
 app.use(router.routes());
