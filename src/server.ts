@@ -27,10 +27,15 @@ router.get("/", (ctx) => {
 router.all("/api/douyin/oauth/callback", (ctx) => {
   ctx.set("Cache-Control", "no-store, max-age=0");
 
-  const challenge = ctx.query.challenge;
+  const challenge =
+    ctx.query.challenge ||
+    ctx.query.echostr ||
+    ctx.query.verify_token ||
+    ctx.query.token;
 
   if (challenge) {
-    ctx.body = challenge;
+    ctx.type = "text/plain";
+    ctx.body = String(challenge);
     return;
   }
 
