@@ -25,56 +25,38 @@ router.get("/", (ctx) => {
 });
 
 router.all("/api/douyin/oauth/callback", (ctx) => {
-
   ctx.set("Cache-Control", "no-store, max-age=0");
 
-  const body = ctx.request.body as any;
+  const body = ((ctx.request as any).body ?? {}) as any;
 
- const challenge =
-
-  ctx.query.challenge ||
-
-  ctx.query.echostr ||
-
-  ctx.query.verify_token ||
-
-  ctx.query.token ||
-
-  body?.challenge ||
-
-  body?.echostr ||
-
-  body?.verify_token ||
-
-  body?.token ||
-
-  body?.content?.challenge;
+  const challenge =
+    body?.content?.challenge ??
+    body?.challenge ??
+    ctx.query.challenge ??
+    ctx.query.echostr ??
+    ctx.query.verify_token ??
+    ctx.query.token;
 
   console.log("douyin callback verify", {
-
     method: ctx.method,
-
     path: ctx.path,
-
     query: ctx.query,
-
     body
-
   });
 
-  if (challenge) {
+  if (challenge !== undefined && challenge !== null && challenge !== "") {
+    ctx.status = 200;
+    ctx.type = "application/json";
+    ctx.body = {
+      challenge
+    };
+    return;
+  }
+
+  ctx.status = 200;
   ctx.type = "application/json";
-  ctx.body = {
-    challenge: String(challenge)
-  };
-  return;
-}
-
   ctx.body = callbackPayload(ctx);
-
 });
-
-
 
 app.use(bodyParser());
 app.use(router.routes());
