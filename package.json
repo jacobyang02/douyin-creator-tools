@@ -1,52 +1,23 @@
 {
-  "name": "douyin-creator-tools",
+  "name": "om-media-douyin-cloud-callback",
   "version": "0.1.0",
-  "private": true,
-  "type": "module",
-  "description": "基于 Playwright 的抖音创作者中心自动化工具：评论导出/回复、作品管理、文章发布。",
-  "keywords": [
-    "douyin",
-    "playwright",
-    "automation",
-    "creator",
-    "comments"
-  ],
-  "author": "",
-  "engines": {
-    "node": ">=20.0.0"
-  },
+  "description": "OM-Media Data Platform Douyin Cloud callback bridge",
+  "main": "dist/server.js",
   "scripts": {
-    "auth": "node ./src/auth-douyin.mjs",
-    "view": "node ./src/open-douyin-view.mjs",
-    "works": "node ./src/list-douyin-works.mjs",
-    "matrix:sync-works": "node ./src/sync-matrix-from-works.mjs",
-    "matrix:sync-douyin": "node ./src/sync-matrix-from-douyin-creator.mjs",
-    "matrix:sync-messages": "node ./src/sync-matrix-from-douyin-messages.mjs",
-    "matrix:probe-messages": "node ./src/probe-douyin-message-data.mjs",
-    "comments:export": "node ./src/export-douyin-comments.mjs",
-    "comments:export-all": "node ./src/export-all-douyin-comments.mjs",
-    "comments:reply": "node ./src/reply-douyin-comments.mjs",
-    "users": "node ./src/users.mjs",
-    "article:publish": "node ./src/publish-douyin-article.mjs",
-    "imagetext:publish": "node ./src/publish-douyin-imagetext.mjs",
-    "server": "PORT=8765 node ./src/server.mjs",
-    "matrix": "PORT=8765 node ./src/server.mjs",
-    "wordcloud": "node ./src/compute-wordcloud.mjs",
-    "txt2img": "node ./src/txt2img.mjs",
-    "lint": "eslint src/",
-    "lint:fix": "eslint src/ --fix",
-    "format": "prettier --write \"src/**/*.mjs\" \"*.json\" \"*.md\"",
-    "format:check": "prettier --check \"src/**/*.mjs\" \"*.json\" \"*.md\""
+    "build": "tsc",
+    "serve": "node dist/server.js",
+    "start": "npm run serve"
   },
   "dependencies": {
-    "better-sqlite3": "^12.8.0",
-    "express": "^5.2.1",
-    "playwright": "^1.52.0"
+    "@koa/router": "^10.0.0",
+    "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.24.0",
-    "eslint": "^9.24.0",
-    "eslint-config-prettier": "^10.1.2",
-    "prettier": "^3.5.3"
+    "@types/koa": "2.13.1",
+    "@types/koa__router": "^8.0.4",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/node": "^14.14.37",
+    "typescript": "^4.2.3"
   }
 }
